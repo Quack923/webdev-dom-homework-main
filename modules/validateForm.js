@@ -1,6 +1,7 @@
 const nameInput = document.querySelector(".add-form-name");
 const commentInput = document.querySelector(".add-form-text");
-import { comments } from "./arrComments.js";
+import { postComment } from "./api.js";
+import { comments, updateComment } from "./arrComments.js";
 import { renderComments } from "./renderStudents.js";
  export const addButton = document.querySelector(".add-form-button");
 
@@ -13,16 +14,13 @@ import { renderComments } from "./renderStudents.js";
     const now = new Date();
     const dateTime = now.toLocaleString().slice(0, -3);
 
-    comments.push({
-        name: nameInput.value,
-        date: dateTime,
-        text: commentInput.value,
-        likesCount: 0,
-        isLiked: false,
-    });
 
-    nameInput.value = "";
-    commentInput.value = "";
-
-    renderComments();
+     postComment(nameInput.value,commentInput.value).then(
+        (data) => { 
+            updateComment(data)
+            renderComments()
+            nameInput.value = ""
+            commentInput.value = ""
+        },
+     )  
 });
