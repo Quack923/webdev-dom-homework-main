@@ -13,6 +13,7 @@ import { renderComments } from "./renderStudents.js";
 
     const now = new Date();
     const dateTime = now.toLocaleString().slice(0, -3);
+    
 
 
      postComment(nameInput.value,commentInput.value).then(
