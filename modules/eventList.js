@@ -9,32 +9,33 @@ export const initEventListeners = (renderFunction) => {
             const index = likeButton.dataset.index;
             const comment = comments[index];
 
+likeButton.classList.add(".-loading-like");
+likeButton.style.pointerEvents = "none";  
 
-            if (comment.isLiked) {
-                comment.likes -= 1;
-                comment.isLiked = false;
-            } else {
-                comment.likes    += 1;
-                comment.isLiked = true;
-            }
+      setTimeout(() => {
+        if (comment.isLiked) {
+          comment.likes -= 1;
+          comment.isLiked = false;
+        } else {
+          comment.likes += 1;
+          comment.isLiked = true;
+        }
 
-            renderFunction();
-        };
-    }
+        renderFunction();
+      }, 2000);
+    };
+  }
 
+  const replyButtons = document.querySelectorAll(".reply-button");
+  const commentInput = document.querySelector(".add-form-text");
 
-    const replyButtons = document.querySelectorAll(".reply-button");
-    const commentInput = document.querySelector(".add-form-text");
+  for (const replyButton of replyButtons) {
+    replyButton.onclick = () => {
+      const index = replyButton.dataset.index;
+      const comment = comments[index];
 
-    for (const replyButton of replyButtons) {
-        replyButton.onclick = () => {
-            const index = replyButton.dataset.index;
-            const comment = comments[index];
-
-            commentInput.value = `> ${comment.text}\n\n${comment.name}, `;
-
-
-            commentInput.focus();
-        };
-    }
-  };
+      commentInput.value = `> ${comment.text}\n\n${comment.name}, `;
+      commentInput.focus();
+    };
+  }
+};

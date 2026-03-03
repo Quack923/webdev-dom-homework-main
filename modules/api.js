@@ -9,12 +9,13 @@ export const fetchComments = () => {
         const appComments = responseData.comments.map((comment) => {
             return {
                 name: comment.author.name,
-                date: new Date(comment.date),
+                date: new Date(comment.date).toLocaleString(),
                 text: comment.text,
                 likes: comment.likes,
                 isLiked: false,
             };
         });
+        
         return appComments;
     });
 };
