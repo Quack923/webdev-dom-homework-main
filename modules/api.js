@@ -27,7 +27,20 @@ export const postComment = (text, name) => {
             text: text, 
             name: name,
         }),
-    }).then(() => {
+    }).then((response)=>{
+        if (response.status === 201) {
+             return fetchComments(); 
+        }
+        if (response.status === 500) {
+            throw new Error('ошибка сервера')
+        }
+          if (response.status === 400) {
+            throw new Error('неверный запрос')
+        }
+      
+
+    })
+    .then(() => {
         return fetchComments(); 
-    });
+    })  
 };

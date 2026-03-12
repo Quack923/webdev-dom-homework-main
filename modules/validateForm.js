@@ -35,6 +35,18 @@ function delay(interval = 500) {
             renderComments()
             nameInput.value = ""
             commentInput.value = ""
-        },
-     )  
+        })
+        .catch((error)=>{
+          document.querySelector('.add-form_load').style.display = 'none'
+        document.querySelector('.add-form').style.display = 'flex'
+         if (error.message === 'failed to fetch') {
+            alert ('Проблемы с интернетом, попробуйте позже')
+         }
+         if (error.message === 'ошибка сервера') {
+            alert('ошибка сервера')    
+         }
+         if (error.message === 'неверный запрос') {
+            alert('Вы ввели некоректные данные')    
+         }
+        })
 });
