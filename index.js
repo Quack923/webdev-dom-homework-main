@@ -5,8 +5,16 @@ import { addButton } from "./modules/validateForm.js";
 import { fetchComments } from './modules/api.js';
 import {initEventListeners} from "./modules/eventList.js";
 
-  fetchComments().then((data) => {
+ fetchComments().then((data) => {
     updateComment(data);
     renderComments();  
-});
-initEventListeners(renderComments);
+}); 
+
+export const fetchAndRenderComments = () =>{
+  fetchComments().then((data)=>{
+    updateComment(data)
+    renderComments()
+  })
+}
+
+// initEventListeners(renderComments);
