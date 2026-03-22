@@ -3,6 +3,7 @@ import { clearHtml } from "./sanitaze.js";
 import { initEventListeners } from "./eventList.js";
 import { renderLogin } from "./renderLogin.js";
 import { name, token } from "./api.js";
+import { validButn } from "./validateForm.js";
 
 const container = document.querySelector(".container");
 
@@ -48,7 +49,8 @@ export const renderComments = () => {
   container.innerHTML = baseHtml;
 
   if (token) {
-    initEventListeners(renderComments);
+    initEventListeners(renderComments)
+    validButn()
   } else {
     const loginLink = document.querySelector(".link-login");
     if (loginLink) {
@@ -58,3 +60,4 @@ export const renderComments = () => {
     }
   }
 };
+//напоминание для себя: не дергать эту хрень, работает и слава кому-нибудь

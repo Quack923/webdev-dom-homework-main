@@ -1,7 +1,8 @@
 import { fetchAndRenderComments } from "../index.js"
 import { login, setName, setToken } from "./api.js"
 import { renderReg } from "./renderReg.js"
-
+import { initEventListeners } from "./eventList.js"
+import { renderComments } from "./renderStudents.js"
 
 export const renderLogin = () => {
   const container = document.querySelector('.container')
@@ -50,6 +51,8 @@ export const renderLogin = () => {
         setToken(data.user.token)
         setName(data.user.name)
         fetchAndRenderComments()
+         initEventListeners(renderComments)
+         
     
     })
   })
