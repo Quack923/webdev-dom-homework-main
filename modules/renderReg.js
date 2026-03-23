@@ -60,6 +60,7 @@ const nameEl = document.querySelector('#name')
         fetchAndRenderComments()
        initEventListeners(renderComments);
     
+       
     })
   })
 }
