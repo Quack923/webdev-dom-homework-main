@@ -1,27 +1,42 @@
-const nameInput = document.querySelector(".add-form-name");
-const commentInput = document.querySelector(".add-form-text");
-import { postComment } from "./api.js";
-import { comments, updateComment } from "./arrComments.js";
+import { postComment, fetchComments } from "./api.js"; 
+import { updateComment } from "./arrComments.js";
 import { renderComments } from "./renderStudents.js";
- export const addButton = document.querySelector(".add-form-button");
 
-   addButton.addEventListener("click", () => {
-    if (nameInput.value.trim() === "" || commentInput.value.trim() === "") {
-        alert("Заполните все поля!");
-        return;
+export const validButn = () => {
+  const addButton = document.querySelector(".add-form-button");
+  const commentInput = document.querySelector(".add-form-text");
+
+  if (!addButton) return;
+
+  addButton.addEventListener("click", () => {
+    if (commentInput.value.trim() === "") {
+      alert("Заполните текст комментария!");
+      return;
     }
 
-    const now = new Date();
-    const dateTime = now.toLocaleString().slice(0, -3);
+    const commentLoad = document.querySelector('.add-form_load');
+    const commentForm = document.querySelector('.add-form');
+
+    if (commentLoad) commentLoad.style.display = 'block';
+    if (commentForm) commentForm.style.display = 'none';
+
     
-
-
-     postComment(nameInput.value,commentInput.value).then(
-        (data) => { 
-            updateComment(data)
-            renderComments()
-            nameInput.value = ""
-            commentInput.value = ""
-        },
-     )  
-});
+    postComment(commentInput.value)
+      .then(() => {
+        return fetchComments();
+      })
+      .then((newComments) => {
+        updateComment(newComments);
+        renderComments();
+        
+        commentInput.value = "";
+        if (commentLoad) commentLoad.style.display = 'none';
+        if (commentForm) commentForm.style.display = 'flex';
+      })
+      .catch((error) => {
+        if (commentLoad) commentLoad.style.display = 'none';
+        if (commentForm) commentForm.style.display = 'flex';
+        alert(error.message);
+      });
+  });
+};
