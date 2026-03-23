@@ -58,7 +58,7 @@ export const login = ({ login, password }) => {
         body: JSON.stringify({ login, password }),
     }).then((response) => {
         if (response.status === 400) {
-            throw new Error("Неверный логин или пароль");
+           alert("Неверный логин или пароль");
         }
         return response.json();
     });
@@ -70,7 +70,7 @@ export const registration = ({ name, login, password }) => {
         body: JSON.stringify({ name, login, password })
     }).then((response) => {
         if (response.status === 400) {
-            throw new Error("Пользователь уже существует или данные неверны");
+            alert("Пользователь уже существует или данные неверны");
         }
         return response.json();
     });
